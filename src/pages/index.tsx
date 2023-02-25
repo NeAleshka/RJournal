@@ -32,14 +32,8 @@ export default function Home() {
   return (
     <MainLayout>
       {posts.map(({imgUrl, description, title, id}, index) => (
-        <Link href={`news/${id}`}>
-          <Post
-            key={imgUrl + index}
-            title={title}
-            description={description}
-            imgUrl={imgUrl}
-            id={id}
-          />
+        <Link href={`news/${id}`} key={imgUrl + index}>
+          <Post title={title} description={description} imgUrl={imgUrl} id={id} />
         </Link>
       ))}
     </MainLayout>

@@ -2,38 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
-    background-color: #f2f2f2
+body {
+  font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+  background-color: #f2f2f2;
 }
-
 
 * {
-    -webkit-text-size-adjust: 100%;
-    box-sizing: border-box;
-    outline: none;
-    font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
+  outline: none;
+  font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
-@layer components{
-    .header_search{
-        @apply flex items-center bg-[#f2e8d6] hover:bg-white p-2 w-1/2 hover:border border-[#ffd796] rounded-xl hover:shadow shadow-sm hover:shadow-[#e5a0401f] transition  duration-300 sm:w-[310px]
-    }
-    .circle_hover_bg{
-      @apply  flex justify-center items-center w-[40px] h-[40px] rounded-full hover:bg-[#f5ead9]
-    }
+@layer components {
+  .header_search {
+    @apply flex w-1/2 items-center rounded-xl border-[#ffd796] bg-[#f2e8d6] p-2 shadow-sm transition duration-300 hover:border hover:bg-white hover:shadow  hover:shadow-[#e5a0401f] sm:w-[310px];
+  }
+  .circle_hover_bg {
+    @apply flex h-[40px] w-[40px] items-center justify-center rounded-full hover:bg-[#f5ead9];
+  }
 
-    .icon{
-     @apply w-[25px] cursor-pointer
-    }
+  .icon {
+    @apply w-[25px] cursor-pointer;
+  }
 
-    .left_menu_item{
-        @apply flex items-center cursor-pointer px-[15px] h-[50px] rounded-[10px] hover:scale-105 transform transition duration-300 ease-out hover:bg-gray-200 md:pl-[10px]
-    }
-    .header{
-        @apply flex fixed z-10 items-center justify-between w-full h-[60px] px-[10px] bg-[#FFF4E2] md:pl-[10px] md:pr-10
-    }
-    .left_menu_wrapper{
-        @apply scrollbar-none flex justify-between overflow-x-scroll overflow-y-hidden mb-3 md:space-y-3 first:pt-5 md:flex-col md:overflow-hidden
-    }
+  .left_menu_item {
+    @apply flex h-[50px] transform cursor-pointer items-center rounded-[10px] px-[15px] transition duration-300 ease-out hover:scale-105 hover:bg-gray-200 md:pl-[10px];
+  }
+  .header {
+    @apply fixed z-10 flex h-[60px] w-full items-center justify-between bg-[#FFF4E2] px-[10px] md:pl-[10px] md:pr-10;
+  }
+  .left_menu_wrapper {
+    @apply mb-3 flex justify-between overflow-x-scroll overflow-y-hidden scrollbar-none first:pt-5 md:flex-col md:space-y-3 md:overflow-hidden;
+  }
+  .active_filter {
+    @apply border-b-2 border-b-blue-500 text-blue-500;
+  }
+  .modal {
+    @apply z-10 mt-[60px] h-[700px] w-[95vw] rounded-[10px] border border-black bg-white py-6 px-4 shadow lg:w-[80vw] xl:w-[50vw];
+  }
 }

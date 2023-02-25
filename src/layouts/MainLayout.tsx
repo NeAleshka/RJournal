@@ -7,11 +7,13 @@ import {useDeviceSize} from '@/hooks';
 
 const MainLayout = ({hideComments, contentFullWidth, className, children}: MainLayoutProps) => {
   return (
-    <div className={clsx('pt-[80px] px-[10px] md:flex pt-[80px] md:px-[30px]', className)}>
+    <div className={clsx('px-[10px] pt-[80px] pt-[80px] md:flex md:px-[30px]', className)}>
       <div>
         <LeftMenu />
       </div>
-      <div className={clsx('max-w-[640px] w-full mx-auto', {'content--full': contentFullWidth})}>
+      <div
+        className={clsx('mx-auto w-full max-w-[640px]')}
+        style={contentFullWidth ? {maxWidth: '1000px'} : {}}>
         {children}
       </div>
       {!hideComments && (

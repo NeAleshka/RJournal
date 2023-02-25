@@ -9,6 +9,9 @@ import {
 import Image from 'next/image';
 import {logo} from '@/assets/images';
 import {useDeviceSize} from '@/hooks';
+import Button from '@/componets/Button';
+import Link from 'next/link';
+import CreatePost from '@/componets/CreatePost';
 
 const Header = () => {
   return (
@@ -23,23 +26,37 @@ export default Header;
 
 const LeftSide = () => {
   const screenWidth = useDeviceSize();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={'flex items-center'}>
       <div className={'circle_hover_bg'}>
         <Bars3Icon className={'icon'} />
       </div>
-      <Image src={logo} alt={'logo'} className={'w-[34px] h-[35px] cursor-pointer mr-4'} />
+      <Link href={'/'}>
+        <Image src={logo} alt={'logo'} className={'mr-4 h-[35px] w-[34px] cursor-pointer'} />
+      </Link>
       <div className={'header_search'}>
-        <MagnifyingGlassIcon className={'w-[20px] mr-2 text-gray-500'} />
-        <input placeholder={'Поиск'} className={'bg-inherit outline-none w-full'} />
+        <MagnifyingGlassIcon className={'mr-2 w-[20px] text-gray-500'} />
+        <input placeholder={'Поиск'} className={'w-full bg-inherit outline-none'} />
       </div>
-      <button className={'ml-3 bg-white shadow rounded-xl px-4 py-2 border hover:shadow-lg'}>
-        <span className={'font-medium text-[16px]'}>
-          {' '}
-          {screenWidth < 730 ? <PlusIcon className={'w-[25px] h-[25px]'} /> : 'Новая запись'}
+      <Button
+        className={'ml-3 rounded-xl border bg-white px-4 py-2 shadow hover:shadow-lg'}
+        onClick={handleOpen}>
+        <span className={'text-[16px] font-medium'}>
+          {screenWidth < 730 ? <PlusIcon className={'h-[25px] w-[25px]'} /> : 'Новая запись'}
         </span>
-      </button>
+      </Button>
+
+      <CreatePost open={open} handleClose={handleClose} />
     </div>
   );
 };
