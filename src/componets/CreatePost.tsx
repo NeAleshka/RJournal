@@ -24,7 +24,7 @@ export default function CreatePost({open, handleClose}: IModalProps) {
           timeout: 500,
         },
       }}
-      className={'flex justify-center backdrop-blur-sm'}>
+      className={'flex justify-center !z-10 backdrop-blur-sm'}>
       <Zoom in={open} style={{transitionDuration: '400ms'}}>
         <Box className={'modal'}>
           <Input
