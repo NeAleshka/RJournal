@@ -20,6 +20,7 @@ const Editor = () => {
     };
   }, []);
 
+  // @ts-ignore
   return <div id={'textEditor'} className={'h-[90%]'} ref={ref}></div>;
 };
 

@@ -7,7 +7,7 @@ import Button from '@/componets/Button';
 const FullPost = () => {
   return (
     <div className={'bg-white py-[30px] pb-16'}>
-      <div className={'mx-auto flex w-[680px] flex-col space-y-5 text-[18px]'}>
+      <div className={'mx-auto flex w-fit flex-col space-y-5 px-2 text-[18px] md:max-w-[640px]'}>
         <div className={'text-[36px] font-medium leading-[45px]'}>
           Wizz Air, летящий из Варшавы в Прагу, подал сигнал бедствия. Возможно, в Полете произошла
           резгермитизация
@@ -30,7 +30,7 @@ const FullPost = () => {
         <div className={'ml-[-10px] w-[250px]'}>
           <PostActions />
         </div>
-        <div className={'flex w-full justify-between'}>
+        <div className={'flex w-full flex-wrap justify-between'}>
           <div className={'flex items-center'}>
             <UserCircleIcon className={'mr-2 w-[40px] cursor-pointer'} />
             <div className={'text-[18px] font-medium'}>

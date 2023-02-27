@@ -27,8 +27,18 @@ export interface IItemComment {
   commentTitle: string;
 }
 
+export interface IPostComment extends Omit<IItemComment, 'commentTitle'> {
+  createAt: string;
+  id: string;
+}
+
 export interface ISideComment {
   user: {fullName: string};
   text: string;
   post: {title: string};
+}
+
+export interface ISortComments {
+  sortComments: 'popular' | 'date';
+  setSortComments: (sortComments: 'popular' | 'date') => void;
 }

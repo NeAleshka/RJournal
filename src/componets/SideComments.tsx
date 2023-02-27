@@ -1,5 +1,5 @@
-import React from 'react';
-import {ArrowSmallRightIcon} from '@heroicons/react/24/solid';
+import React, {useState} from 'react';
+import {ArrowSmallRightIcon, ArrowSmallUpIcon} from '@heroicons/react/24/solid';
 import {IItemComment, ISideComment} from '@/interfaces';
 import Image from 'next/image';
 
@@ -34,23 +34,32 @@ const SideComments = () => {
       },
     },
   ];
+  const [hideComments, setHideComments] = useState(false);
 
   return (
-    <div className={'sticky top-[80px] ml-[40px] w-fit'}>
-      <h3 className={'flex items-center text-[18px] font-medium'}>
-        Комментарии
-        <ArrowSmallRightIcon className={'ml-[12px] h-[18px] w-[18px]'} />
-      </h3>
-      {items.map(({user, post, text}, index) => (
-        <ItemComment
-          key={index}
-          avatar={userLogo}
-          userName={user.fullName}
-          comment={text}
-          commentTitle={post.title}
-        />
-      ))}
-    </div>
+    <>
+      {hideComments ? (
+        <HideComments setHideComments={setHideComments} />
+      ) : (
+        <div className={'sticky top-[80px] ml-[40px] w-fit cursor-pointer'}>
+          <h3
+            className={'flex  items-center text-[18px] font-medium'}
+            onClick={() => setHideComments(true)}>
+            Комментарии
+            <ArrowSmallRightIcon className={'ml-[12px] h-[18px] w-[18px]'} />
+          </h3>
+          {items.map(({user, post, text}, index) => (
+            <ItemComment
+              key={index}
+              avatar={userLogo}
+              userName={user.fullName}
+              comment={text}
+              commentTitle={post.title}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -72,6 +81,21 @@ const ItemComment = ({avatar, comment, commentTitle, userName}: IItemComment) =>
 
       <div className={'mt-[16px] mb-[5px] text-[16px]'}>{comment}</div>
       <div className={'mb-[25px] font-medium'}>{commentTitle}</div>
+    </div>
+  );
+};
+
+const HideComments = ({setHideComments}: any) => {
+  return (
+    <div className={'flex items-start'}>
+      <h3 className={'mt-[20px] flex -rotate-90 items-center pt-[140px] text-[18px] font-medium'}>
+        <div
+          className={'flex cursor-pointer items-center hover:animate-bounce'}
+          onClick={() => setHideComments(false)}>
+          <span>Комментарии</span>
+          <ArrowSmallUpIcon className={'ml-[12px] h-[18px] w-[18px]'} />
+        </div>
+      </h3>
     </div>
   );
 };

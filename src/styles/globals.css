@@ -46,6 +46,10 @@ body {
     .modal {
         @apply z-10 mt-[60px] h-[700px] w-[95vw] rounded-[10px] border border-black bg-white py-6 px-4 shadow lg:w-[80vw] xl:w-[50vw];
     }
+    .active_input_comment{
+       @apply items-start min-h-[150px] border-2 border-cyan-400 bg-white !important
+    }
+
 }
 /*if you want input have width 100% in create post modal*/
 .ce-block__content, .ce-toolbar__content {

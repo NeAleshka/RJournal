@@ -4,9 +4,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-    require('tailwindcss-animate'),
-    require('prettier-plugin-tailwindcss'),
-  ],
+  plugins: [require('tailwind-scrollbar'), require('prettier-plugin-tailwindcss')],
 };

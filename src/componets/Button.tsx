@@ -6,7 +6,7 @@ const Button = ({children, className, ...rest}: DefaultSpanPropsType) => {
   return (
     <button
       {...rest}
-      className={`my-3 rounded-xl border py-2 px-4 font-bold shadow-md transition duration-200 active:scale-90 ${className}`}>
+      className={`rounded-xl border py-2 px-4 font-bold shadow-md transition duration-200 active:scale-90 ${className}`}>
       {children}
     </button>
   );
