@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      borderRadius: {
+        '10px': '10px',
+      },
+    },
   },
   plugins: [require('tailwind-scrollbar'), require('prettier-plugin-tailwindcss')],
 };

@@ -28,7 +28,7 @@ body {
     }
 
     .left_menu_item {
-        @apply flex h-[50px] transform cursor-pointer items-center rounded-[10px] px-[15px] transition duration-300 ease-out hover:scale-105 hover:bg-gray-200 md:pl-[10px];
+        @apply flex h-[50px] transform cursor-pointer items-center rounded-[10px] px-[15px] transition duration-300 ease-out hover:scale-105;
     }
 
     .header {
@@ -37,6 +37,10 @@ body {
 
     .left_menu_wrapper {
         @apply mb-3 flex justify-between overflow-x-scroll overflow-y-hidden scrollbar-none first:pt-5 md:flex-col md:space-y-3 md:overflow-hidden;
+    }
+
+    .sort_filter{
+        @apply w-[160px] text-center transform px-[30px] py-[10px] text-[14px] font-medium text-gray-400 transition duration-500 cursor-pointer
     }
 
     .active_filter {

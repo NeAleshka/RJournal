@@ -8,6 +8,7 @@ const nextConfig = {
       'toppng.com',
       'static.vecteezy.com',
       'png.pngtree.com',
+      'leonardo.osnova.io',
     ],
   },
 };

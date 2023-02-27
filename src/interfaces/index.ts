@@ -25,6 +25,7 @@ export interface IItemComment {
   userName: string;
   comment: string;
   commentTitle: string;
+  postId: number;
 }
 
 export interface IPostComment extends Omit<IItemComment, 'commentTitle'> {

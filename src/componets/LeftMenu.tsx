@@ -3,6 +3,7 @@ import {FireIcon, ArrowTrendingUpIcon} from '@heroicons/react/24/solid';
 import {ChatBubbleLeftEllipsisIcon, ListBulletIcon} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import {IMenuItem} from '@/interfaces';
+import {useRouter} from 'next/router';
 
 const LeftMenu = () => {
   const menuItems: IMenuItem[] = [
@@ -12,11 +13,15 @@ const LeftMenu = () => {
     {text: 'Подписки', icon: <ListBulletIcon />, path: '/follows'},
   ];
 
+  const routePath = useRouter().asPath;
+
   return (
     <div className={'sticky top-[80px] w-full  md:w-[200px]'}>
       <ul className={'left_menu_wrapper'}>
         {menuItems.map(({text, path, icon}, index) => (
-          <li key={`${path}_${index}`} className={'left_menu_item'}>
+          <li
+            key={`${path}_${index}`}
+            className={`left_menu_item ${routePath === path && 'bg-gray-200 md:pl-[10px]'}`}>
             <Link href={path}>
               <div className={'flex'}>
                 <div className={'icon mr-2'}>{icon}</div>
@@ -31,3 +36,5 @@ const LeftMenu = () => {
 };
 
 export default LeftMenu;
+
+//bg-gray-200 md:pl-[10px]

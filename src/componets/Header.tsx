@@ -76,8 +76,9 @@ const RightSide = () => {
           </div>
         </>
       )}
-
-      <UserCircleIcon className={'w-[40px] cursor-pointer'} />
+      <Link href={`/profile/1`}>
+        <UserCircleIcon className={'w-[40px] cursor-pointer'} />
+      </Link>
       <ChevronDownIcon className={'w-[15px]'} />
     </div>
   );

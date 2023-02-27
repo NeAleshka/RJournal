@@ -31,23 +31,17 @@ const RatingSort = () => {
   return (
     <div className={'mb-3 flex items-start'}>
       <div
-        className={`${
-          sort === 'month' && 'active_filter !text-blue-500'
-        } transform px-[30px] py-[10px] text-[14px] font-medium text-gray-400 transition duration-500`}
+        className={`sort_filter ${sort === 'month' && 'active_filter !text-blue-500'}`}
         onClick={() => setSort('month')}>
         ФЕВРАЛЬ
       </div>
       <div
-        className={`transform px-[30px] py-[10px] text-[14px] font-medium text-gray-400 transition duration-500 ${
-          sort === 'threeMonth' && 'active_filter !text-blue-500'
-        }`}
+        className={`sort_filter ${sort === 'threeMonth' && 'active_filter !text-blue-500'}`}
         onClick={() => setSort('threeMonth')}>
         ЗА 3 МЕСЯЦА
       </div>
       <div
-        className={`transform px-[30px] py-[10px] text-[14px] font-medium text-gray-400 transition duration-500 ${
-          sort === 'all' && 'active_filter !text-blue-500'
-        }`}
+        className={`sort_filter ${sort === 'all' && 'active_filter !text-blue-500'}`}
         onClick={() => setSort('all')}>
         ЗА ВСЁ ВРЕМЯ
       </div>

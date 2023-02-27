@@ -13,7 +13,7 @@ const MainLayout = ({hideComments, contentFullWidth, className, children}: MainL
       </div>
       <div
         className={clsx('mx-auto w-full max-w-[640px]')}
-        style={contentFullWidth ? {maxWidth: '1000px'} : {}}>
+        style={contentFullWidth ? {maxWidth: '1050px'} : {}}>
         {children}
       </div>
       {!hideComments && (

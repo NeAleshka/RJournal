@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {ArrowSmallRightIcon, ArrowSmallUpIcon} from '@heroicons/react/24/solid';
 import {IItemComment, ISideComment} from '@/interfaces';
 import Image from 'next/image';
+import {posts} from '@/pages';
+import Link from 'next/link';
 
 const SideComments = () => {
   const userLogo = 'https://web24.com.ua/wp-content/uploads/2021/10/tema-06-001jpg.jpg';
@@ -12,7 +14,7 @@ const SideComments = () => {
       },
       text: 'Каждое утро я начинаю с чашки кофе',
       post: {
-        title: 'Какой у вас дома кофе?',
+        title: `${posts[0].title}`,
       },
     },
     {
@@ -21,7 +23,7 @@ const SideComments = () => {
       },
       text: 'Каждое утро я начинаю с чашки кофе',
       post: {
-        title: 'Какой у вас дома кофе?',
+        title: `${posts[1].title}`,
       },
     },
     {
@@ -30,7 +32,7 @@ const SideComments = () => {
       },
       text: 'Каждое утро я начинаю с чашки кофе',
       post: {
-        title: 'Какой у вас дома кофе?',
+        title: `${posts[2].title}`,
       },
     },
   ];
@@ -55,6 +57,7 @@ const SideComments = () => {
               userName={user.fullName}
               comment={text}
               commentTitle={post.title}
+              postId={index}
             />
           ))}
         </div>
@@ -65,7 +68,7 @@ const SideComments = () => {
 
 export default SideComments;
 
-const ItemComment = ({avatar, comment, commentTitle, userName}: IItemComment) => {
+const ItemComment = ({avatar, comment, commentTitle, userName, postId}: IItemComment) => {
   return (
     <div className={'mb-[25px] border-b pr-8 first-of-type:mt-[30px] last-of-type:border-b-0'}>
       <div className={'flex'}>
@@ -80,7 +83,14 @@ const ItemComment = ({avatar, comment, commentTitle, userName}: IItemComment) =>
       </div>
 
       <div className={'mt-[16px] mb-[5px] text-[16px]'}>{comment}</div>
-      <div className={'mb-[25px] font-medium'}>{commentTitle}</div>
+      <Link href={`/news/${posts[postId].id}`}>
+        <div
+          className={
+            'mb-[25px] max-w-[270px] overflow-hidden text-ellipsis whitespace-nowrap font-medium'
+          }>
+          {commentTitle}
+        </div>
+      </Link>
     </div>
   );
 };
