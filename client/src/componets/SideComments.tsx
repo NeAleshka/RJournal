@@ -57,7 +57,7 @@ const SideComments = () => {
               userName={user.fullName}
               comment={text}
               commentTitle={post.title}
-              postId={index}
+              postId={index.toString()}
             />
           ))}
         </div>
@@ -83,7 +83,7 @@ const ItemComment = ({avatar, comment, commentTitle, userName, postId}: IItemCom
       </div>
 
       <div className={'mt-[16px] mb-[5px] text-[16px]'}>{comment}</div>
-      <Link href={`/news/${posts[postId].id}`}>
+      <Link href={`/news/${posts[+postId].id}`}>
         <div
           className={
             'mb-[25px] max-w-[270px] overflow-hidden text-ellipsis whitespace-nowrap font-medium'

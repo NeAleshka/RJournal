@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {EllipsisHorizontalIcon, UserCircleIcon} from '@heroicons/react/24/solid';
+import {EllipsisHorizontalIcon} from '@heroicons/react/24/solid';
 import {Menu, MenuItem} from '@mui/material';
 import {IPostComment} from '@/interfaces';
 import Image from 'next/image';

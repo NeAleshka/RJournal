@@ -9,7 +9,7 @@ import {
   ShareIcon,
 } from '@heroicons/react/24/outline';
 
-const Post = ({title, imgUrl, description, id}: IPostProps) => {
+const Post = ({title, imgUrl, description}: IPostProps) => {
   return (
     <div className={'mb-[25px] h-[600px] rounded-[10px] bg-white p-[20px]'}>
       <div className={'mb-[10px] text-[22px] font-medium leading-6'}>{title}</div>

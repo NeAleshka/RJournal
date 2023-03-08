@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import LeftMenu from '@/componets/LeftMenu';
 import {MainLayoutProps} from '@/interfaces';
 import SideComments from '@/componets/SideComments';
-import {useDeviceSize} from '@/hooks';
 
 const MainLayout = ({hideComments, contentFullWidth, className, children}: MainLayoutProps) => {
   return (

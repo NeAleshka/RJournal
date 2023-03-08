@@ -13,6 +13,7 @@ const PostComments = () => {
         'https://toppng.com/uploads/preview/roger-berry-avatar-placeholder-11562991561rbrfzlng6h.png',
       createAt: '5 часов назад',
       id: '1',
+      postId:'1'
     },
     {
       comment: 'Каждое утро я начинаю с чашки кофео',
@@ -21,6 +22,7 @@ const PostComments = () => {
         'https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small/beautiful-latin-woman-avatar-character-icon-free-vector.jpg',
       createAt: '5 часов назад',
       id: '2',
+      postId:'2'
     },
     {
       comment: 'Много раз летал на Wizz Air, и все было хорошо',
@@ -29,6 +31,7 @@ const PostComments = () => {
         'https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png',
       createAt: '5 часов назад',
       id: '3',
+      postId:'3',
     },
   ];
 
@@ -48,6 +51,7 @@ const PostComments = () => {
               avatar={avatar}
               createAt={createAt}
               userName={userName}
+              postId={id}
             />
           ))}
         </div>

@@ -1,11 +1,11 @@
 import React, {DetailedHTMLProps} from 'react';
 
-type DefaultSpanPropsType = DetailedHTMLProps<
+type DefaultButtonPropsType = DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
 
-const Button = ({children, className, type, disabled, ...rest}: DefaultSpanPropsType) => {
+const Button = ({children, className, type, disabled, ...rest}: DefaultButtonPropsType) => {
   return (
     <button
       type={type ? type : 'button'}
