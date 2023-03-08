@@ -43,3 +43,8 @@ export interface ISortComments {
   sortComments: 'popular' | 'date';
   setSortComments: (sortComments: 'popular' | 'date') => void;
 }
+
+export interface IEntrance {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}

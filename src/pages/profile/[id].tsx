@@ -4,6 +4,7 @@ import Button from '@/componets/Button';
 import {ChatBubbleLeftEllipsisIcon, Cog8ToothIcon} from '@heroicons/react/24/outline';
 import Post from '@/componets/Post';
 import {posts} from '@/pages';
+import Link from 'next/link';
 
 export default function Profile() {
   return (
@@ -31,9 +32,12 @@ export default function Profile() {
             </div>
             {/*right*/}
             <div className={'flex items-start'}>
-              <Button className={'mr-2'}>
-                <Cog8ToothIcon className={'icon'} />
-              </Button>
+              <Link href={'/profile/settings'}>
+                <Button className={'mr-2'}>
+                  <Cog8ToothIcon className={'icon'} />
+                </Button>
+              </Link>
+
               <Button className={'flex bg-blue-300 text-white'}>
                 <ChatBubbleLeftEllipsisIcon className={'icon mr-1'} />
                 <span>Написать</span>

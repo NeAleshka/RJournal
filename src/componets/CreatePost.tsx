@@ -24,7 +24,7 @@ export default function CreatePost({open, handleClose}: IModalProps) {
           timeout: 500,
         },
       }}
-      className={'!z-10 flex justify-center overflow-y-scroll backdrop-blur-sm md:overflow-y-auto'}>
+      className={'!z-10 flex justify-center overflow-y-scroll md:overflow-y-auto'}>
       <Zoom in={open} style={{transitionDuration: '400ms'}}>
         <Box className={'modal'}>
           <Input

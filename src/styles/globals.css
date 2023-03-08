@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
     background-color: #f2f2f2;
 }
 
