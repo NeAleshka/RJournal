@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
   Dependencies,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 @Dependencies(AuthService)

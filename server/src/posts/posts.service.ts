@@ -58,10 +58,11 @@ export class PostsService {
     const queryBuilder = this.repository.createQueryBuilder('posts');
     queryBuilder.orderBy('views', 'DESC');
 
-    // queryBuilder.limit(2);
     const [posts, total] = await queryBuilder.getManyAndCount();
 
     return { posts, total };
+    // queryBuilder.limit(2);
+
     /*return this.repository.find({
       order: {
         views: 'DESC',
