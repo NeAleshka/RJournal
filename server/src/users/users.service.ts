@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { FindOneOptions, Repository } from 'typeorm';
+import { SearchUserDto } from './dto/search-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,22 @@ export class UsersService {
 
   create(dto: CreateUserDto) {
     return this.repository.save(dto);
+  }
+
+  async search(dto: SearchUserDto) {
+    const qb = this.repository.createQueryBuilder('u');
+    qb.limit(dto.limit || 0);
+    qb.take(dto.take || 10);
+    qb.setParameters({
+      fullName: `%${dto.fullName}%`,
+      email: `%${dto.email}%`,
+    });
+
+    dto.email && qb.andWhere(`u.email ILIKE :email`);
+    dto.fullName && qb.andWhere(`u.fullName ILIKE :fullName`);
+
+    const [items, total] = await qb.getManyAndCount();
+    return { items, total };
   }
 
   findAll() {
@@ -29,7 +46,7 @@ export class UsersService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user ${updateUserDto}`;
+    return this.repository.update(id, updateUserDto);
   }
 
   remove(id: number) {

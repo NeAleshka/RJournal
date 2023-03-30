@@ -14,11 +14,11 @@ export class UserEntity {
   @Column()
   fullName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column({ nullable: true })
-  password: string;
+  password?: string;
 
   @CreateDateColumn()
   createAd: string;

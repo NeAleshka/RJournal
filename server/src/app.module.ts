@@ -9,18 +9,28 @@ import { PostEntity } from './posts/entities/post.entity';
 import { CommentsModule } from './comments/comments.module';
 import { CommentEntity } from './comments/entities/comment.entity';
 import { AuthModule } from './auth/auth.module';
+import { DataSource } from 'typeorm';
+
+export let dataSource: DataSource | null = null;
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 8080,
-      username: 'postgres',
-      password: '43agitin',
-      database: 'rjournal',
-      entities: [UserEntity, PostEntity, CommentEntity],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: 'localhost',
+        port: 8080,
+        username: 'postgres',
+        password: '43agitin',
+        database: 'rjournal',
+        entities: [UserEntity, PostEntity, CommentEntity],
+        synchronize: true,
+        name: 'default',
+      }),
+      dataSourceFactory: async (options) => {
+        dataSource = await new DataSource(options).initialize();
+        return dataSource;
+      },
     }),
     UsersModule,
     PostsModule,
