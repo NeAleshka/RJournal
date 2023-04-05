@@ -1,8 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 
-import EditorJS from '@editorjs/editorjs';
+import EditorJS, {OutputData} from '@editorjs/editorjs';
 
-const Editor = () => {
+
+interface EditorProps {
+  onChange:(blocks:OutputData['blocks'] )=>void
+}
+
+const Editor = ({onChange}:EditorProps) => {
   const ref = useRef<null | EditorJS>(null);
 
   useEffect(() => {
@@ -11,6 +16,11 @@ const Editor = () => {
         placeholder: 'Введите текст вашей статьи',
         holder: 'textEditor',
         hideToolbar: false,
+        async onChange() {
+          if(ref.current){
+            await ref.current.save().then(({blocks})=>onChange(blocks))
+          }
+        }
       });
     }
     return () => {

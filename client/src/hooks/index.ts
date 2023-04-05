@@ -1,4 +1,6 @@
 import {useEffect, useState} from 'react';
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {AppDispatch, AppState} from "@/redux/store";
 
 export const useDeviceSize = () => {
   const [width, setWidth] = useState(0);
@@ -15,3 +17,7 @@ export const useDeviceSize = () => {
 
   return width;
 };
+
+export const useAppDispatch=()=>useDispatch<AppDispatch>()
+
+export const useAppSelector:TypedUseSelectorHook<AppState>=useSelector

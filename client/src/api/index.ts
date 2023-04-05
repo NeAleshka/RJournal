@@ -1,18 +1,24 @@
+import {UserApi} from "@/api/userApi";
+import {NextPageContext} from "next";
+import Cookies, {parseCookies} from 'nookies'
 import axios from "axios";
-import {CreateUserDto, LoginUserDto, ResponseCreateUser} from "@/api/apiTypes";
 
 
-const instance = axios.create({
-    baseURL: 'http://localhost:5000'
-})
+export type ApiReturnType = {
+    user: ReturnType<typeof UserApi>
+}
 
+export const Api = (ctx?: Pick<NextPageContext, 'req'>): ApiReturnType => {
 
-export const UserApi = {
-    register(dto: CreateUserDto) {
-        return instance.post<CreateUserDto, { data: ResponseCreateUser }>('/auth/register', dto).then(res => res.data)
-    },
-    login(dto: LoginUserDto) {
-        return instance.post<LoginUserDto, { data: ResponseCreateUser }>('auth/login', dto).then(res => res.data)
+    const cookies = ctx ? Cookies.get(ctx) : parseCookies()
+    const token = cookies.authToken
+    const instance = axios.create({
+        baseURL: 'http://localhost:5000',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+    return {
+        user: UserApi(instance)
     }
-
 }

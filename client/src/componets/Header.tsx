@@ -6,23 +6,24 @@ import {
     ChatBubbleLeftEllipsisIcon,
     ChevronDownIcon,
     PlusIcon,
-    XMarkIcon,
+    XMarkIcon
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import {appleLogo, faceBook, googleLogo, logo, mail, twitter, vk} from '@/assets/images';
-import {useDeviceSize} from '@/hooks';
+import {useAppDispatch, useAppSelector, useDeviceSize} from '@/hooks';
 import Button from '@/componets/Button';
 import Link from 'next/link';
 import CreatePost from '@/componets/CreatePost';
-import {Alert, Backdrop, Box, Modal, Zoom} from '@mui/material';
+import {Alert, Backdrop, Box, Menu, MenuItem, Modal, Zoom} from '@mui/material';
 import {IEntrance} from '@/interfaces';
 import {FormProvider, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {FormField} from '@/componets/FormField';
 import {CreateUserDto, LoginUserDto} from "@/api/apiTypes";
-import {UserApi} from "@/api";
 import {setCookie} from 'nookies'
+import {exit, selectUserData, setUserData} from "@/redux/slices/user";
+import {Api} from "@/api";
 
 
 const Header = () => {
@@ -54,7 +55,7 @@ const LeftSide = () => {
                 <Bars3Icon className={'icon'}/>
             </div>
             <Link href={'/'}>
-                <Image src={logo} alt={'logo'} className={'mr-4 h-[35px] w-[34px] cursor-pointer'}/>
+                <Image src={logo} alt={'logo'} width={34} height={35} className={'mr-4 w-[34px] h-[35px] cursor-pointer'}/>
             </Link>
             <div className={'header_search'}>
                 <MagnifyingGlassIcon className={'mr-2 w-[20px] text-gray-500'}/>
@@ -67,21 +68,20 @@ const LeftSide = () => {
           {screenWidth < 730 ? <PlusIcon className={'h-[25px] w-[25px]'}/> : 'Новая запись'}
         </span>
             </Button>
-
             <CreatePost open={open} handleClose={handleClose}/>
         </div>
     );
 };
 
 const RightSide = () => {
+    const userData = useAppSelector(selectUserData)
     const width = useDeviceSize();
     const [open, setOpen] = React.useState(false);
-
     return (
-        <div className={'flex'}>
-            {width > 600 && (
+        <div className={'flex text-black'}>
+            {width > 600 && userData && (
                 <>
-                    <div className={'circle_hover_bg'} onClick={() => setOpen(true)}>
+                    <div className={'circle_hover_bg'}>
                         <ChatBubbleLeftEllipsisIcon className={'icon'}/>
                     </div>
                     <div className={'circle_hover_bg'}>
@@ -89,14 +89,58 @@ const RightSide = () => {
                     </div>
                 </>
             )}
-            <Link href={`/profile/1`}>
-                <UserCircleIcon className={'w-[40px] cursor-pointer'}/>
-            </Link>
-            <ChevronDownIcon className={'w-[15px]'}/>
+            {!userData ?
+                <div className={'flex items-center cursor-pointer hover:text-amber-400'} onClick={() => setOpen(true)}>
+                    <Button className={'ml-2 text-[16px] font-medium'}>Войти</Button>
+                </div> :
+                <>
+                    <Link href={`/profile/1`}>
+                        <UserCircleIcon className={'w-[40px]'}/>
+                    </Link>
+                    <UserHeaderMenu/>
+                </>
+            }
             <EntranceModal open={open} setOpen={setOpen}/>
         </div>
     );
 };
+
+const UserHeaderMenu = () => {
+    const dispatch = useAppDispatch()
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return (
+        < div className={'flex items-center'}>
+            <ChevronDownIcon className={'w-[15px]'} onClick={handleClick}/>
+            <Menu
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                elevation={2}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                sx={{top: '40px', left: '-20px'}}
+                disableAutoFocusItem={true}
+            >
+                <MenuItem onClick={handleClose} sx={{paddingRight:'60px'}}>
+                    <button onClick={() => dispatch(exit())}> Выйти</button>
+                </MenuItem>
+            </Menu>
+        </div>
+
+    )
+}
 
 const EntranceModal = ({open, setOpen}: IEntrance) => {
     const [formAuth, setFormAuth] = useState<'main' | 'email' | 'register'>('main');
@@ -136,7 +180,7 @@ const EmailEntrance = ({setFormAuth, setOpen}: any) => {
         email: yup.string().email('Неверный формат').required('Обязательное поле'),
         password: yup.string().min(4, 'Не менее 4 символов').required('Обязательное поле'),
     });
-
+    const dispatch = useAppDispatch()
     const [isRegister, setIsRegister] = useState(false);
     const [responseError, setResponseError] = useState('');
 
@@ -149,14 +193,19 @@ const EmailEntrance = ({setFormAuth, setOpen}: any) => {
         }
     });
     const onSubmit = (data: LoginUserDto) => {
-        UserApi.login(data)
+        Api().user.login(data)
             .then(res => {
+                dispatch(setUserData(res))
                 setCookie(null, 'authToken', res.token, {
                     maxAge: 30 * 24 * 60 * 60,
                     path: '/',
                 })
                 setResponseError('')
+                setOpen(false)
             }).catch(err => {
+                if(err.code==='ERR_NETWORK'){
+                    setResponseError(err.message)
+                }else
             setResponseError(err.response.data.message)
         })
     };
@@ -223,16 +272,16 @@ const RegisterModal = ({setFormAuth, setOpen, setIsRegister, isRegister}: any) =
         }
     });
     const onSubmit = (data: CreateUserDto) => {
-        UserApi.register(data).then(res => {
+        Api().user.register(data).then(res => {
             setCookie(null, 'authToken', res.token, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',
             })
             setResponseError([])
         }).catch(err => {
-            const errorKeys:string[]=err.response.data && Object.keys(err.response.data.errors)
-            const errorsMessages:string[]=[]
-            errorKeys.forEach((item)=>{
+            const errorKeys: string[] = err.response.data && Object.keys(err.response.data.errors)
+            const errorsMessages: string[] = []
+            errorKeys.forEach((item) => {
                 errorsMessages.push(err.response.data.errors[item])
             })
             setResponseError(errorsMessages)
@@ -261,9 +310,10 @@ const RegisterModal = ({setFormAuth, setOpen, setIsRegister, isRegister}: any) =
                     <FormField name={'fullName'} label={'Имя и фамилия'}/>
                     <FormField name={'email'} label={'Почта'}/>
                     <FormField name={'password'} label={'Пароль'}/>
-                       {
-                           responseError.length ? responseError.map((item,index)=> <Alert severity={'error'} className={'mb-5'} key={index}>{item}</Alert>):<></>
-                       }
+                    {
+                        responseError.length ? responseError.map((item, index) => <Alert severity={'error'} className={'mb-5'}
+                                                                                         key={index}>{item}</Alert>) : <></>
+                    }
                     <div className={'flex w-full items-center justify-between '}>
                         <Button disabled={!form.formState.isValid || form.formState.isSubmitting} type={'submit'}>
                             Зарегистрироваться
